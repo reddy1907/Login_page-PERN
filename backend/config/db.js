@@ -1,22 +1,30 @@
-import {pool} from 'pg';
-import dotenv from 'dotenv';
+import pkg from "pg";
+const { Pool } = pkg;
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-})
+  host: process.env.DB_HOST || "localhost",
+  port: Number(process.env.DB_PORT) || 5432,
+  database: process.env.DB_NAME || "pern_auth",
+  user: process.env.DB_USER || "postgres",
+  password: process.env.DB_PASSWORD,
+  ssl: false, // 🔥 IMPORTANT for local Windows Postgres
+});
 
-pool.on("connet", ()=>{
-    console.log("Connected to the database");
-})
+// 🔎 HARD CONNECTION TEST (runs once at startup)
+(async () => {
+  try {
+    const res = await pool.query("SELECT 1");
+    console.log("✅ Connected to PostgreSQL");
+  } catch (err) {
+    console.error("❌ PostgreSQL connection failed:", err.message);
+  }
+})();
 
-pool.on("error", (err) =>{
-    console.error("Unexpected error on idle client",err);
+pool.on("error", (err) => {
+  console.error("Unexpected PostgreSQL error", err);
 });
 
 export default pool;

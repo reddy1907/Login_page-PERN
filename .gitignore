@@ -1,2 +1,5 @@
+# ignore env at root
 .env
-node_modules/
+
+# ignore node_modules inside backend
+backend/node_modules/
