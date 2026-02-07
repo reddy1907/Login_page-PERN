@@ -22,7 +22,7 @@ const Login = ({ setUser }) => {
         { withCredentials: true }
       );
 
-      setUser(res.data); 
+      setUser(res.data.user); 
       navigate("/");
     } catch (err) {
       setError(
@@ -32,7 +32,7 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-[80vh] flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded shadow-md w-80"

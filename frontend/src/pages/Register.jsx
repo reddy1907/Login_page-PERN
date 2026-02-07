@@ -9,10 +9,10 @@ const Register = ({ setUser }) => {
     password: "",
   });
 
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+const [error, setError] = useState("");
+const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -23,7 +23,7 @@ const Register = ({ setUser }) => {
         { withCredentials: true }
       );
 
-      setUser(res.data); 
+      setUser(res.data.user); 
       navigate("/");
     } catch (err) {
       setError(
@@ -33,7 +33,7 @@ const Register = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-[80vh] flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded shadow-md w-80"

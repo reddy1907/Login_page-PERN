@@ -11,6 +11,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
